@@ -23,7 +23,7 @@ import java.util.List;
 
 public class MainActivity3 extends AppCompatActivity implements View.OnClickListener {
     androidx.appcompat.widget.AppCompatButton rPlay;
-    TextView first,second,three;
+    TextView first,second,three, my_score;
     private FirebaseAuth mAuth;
     FirebaseDatabase database;
     DatabaseReference myRef;
@@ -36,6 +36,7 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
         first = findViewById(R.id.first);
         second = findViewById(R.id.second);
         three = findViewById(R.id.three);
+        my_score = findViewById(R.id.my_score);
 
         rPlay.setOnClickListener(this);
 
@@ -63,6 +64,22 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                 makeToast(error.getDetails());
             }
         });
+        //TODO need to add high score of current user
+        /*myRef.child(cutEmail(mAuth.getCurrentUser().getEmail())).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if(snapshot != null) {
+                    User u = snapshot.getValue(User.class);
+                    my_score.setText("yor high score is: " + String.valueOf(u.getScore()));
+                }
+                else
+                    my_score.setText("no high score go to play");
+            }
+            @Override
+            public void onCancelled(DatabaseError error) {
+                makeToast(error.getDetails());
+            }
+        });*/
     }
 
     @Override

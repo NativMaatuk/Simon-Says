@@ -31,9 +31,9 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
 
     FirebaseDatabase database;
     DatabaseReference myRef;
-    private int countTaps=0,lvl = 1,highScore=1;
+    private int countTaps=0,lvl = 1,highScore=1,speed=800, flagSpeed=1;
     TextView topLabel, level, status;
-    androidx.appcompat.widget.AppCompatButton leftTop, rightTop, leftBottom, rightBottom, start, show_score, log_out;
+    androidx.appcompat.widget.AppCompatButton leftTop, rightTop, leftBottom, rightBottom, start, show_score, log_out, slow,normal,fast;
     List<Integer> alerts = new ArrayList<>();
     List<Integer> taps = new ArrayList<>();
     Random random = new Random();
@@ -56,6 +56,9 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         level = findViewById(R.id.level);
         status = findViewById(R.id.status);
         log_out = findViewById(R.id.log_out);
+        slow = findViewById(R.id.slow);
+        normal = findViewById(R.id.normal);
+        fast = findViewById(R.id.fast);
 
         leftBottom.setOnClickListener(this);
         rightBottom.setOnClickListener(this);
@@ -64,6 +67,9 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         start.setOnClickListener(this);
         show_score.setOnClickListener(this);
         log_out.setOnClickListener(this);
+        slow.setOnClickListener(this);
+        normal.setOnClickListener(this);
+        fast.setOnClickListener(this);
 
         mAuth=FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
@@ -125,6 +131,21 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
             this.taps.add(2);
             checkTaps();
         }
+        if(slow.equals(v)){
+            speed = 900;
+            flagSpeed =1;
+            //TODO need to change color of button
+            //slow.setBackgroundColor(getResources().getColor(R.color.black));
+        }
+        if(normal.equals(v)){
+            speed = 800;
+            flagSpeed =2;
+        }
+        if(fast.equals(v)){
+            speed = 620;
+            flagSpeed =3;
+        }
+
     }
 
     public void clearAlert() {
@@ -180,6 +201,18 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
 
     public void startGame() {
         this.start.setVisibility(View.INVISIBLE);
+        if(flagSpeed == 1){
+            normal.setVisibility(View.INVISIBLE);
+            fast.setVisibility(View.INVISIBLE);
+        }
+        if(flagSpeed == 2){
+            slow.setVisibility(View.INVISIBLE);
+            fast.setVisibility(View.INVISIBLE);
+        }
+        if(flagSpeed == 3){
+            slow.setVisibility(View.INVISIBLE);
+            normal.setVisibility(View.INVISIBLE);
+        }
         level.setText("Level: " + String.valueOf(lvl));
         addAlert();
     }
@@ -201,12 +234,13 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
             myRef.child(cutEmail(mAuth.getCurrentUser().getEmail())).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
-                    User u = snapshot.getValue(User.class);
-                    if(highScore > u.getScore()){
-                        u.setScore(highScore);
-                        myRef.child(cutEmail(mAuth.getCurrentUser().getEmail())).setValue(u);
-                    }
-                    restartGame();
+                        User u = snapshot.getValue(User.class);
+                        if (highScore > u.getScore()) {
+                            u.setScore(highScore);
+                            myRef.child(cutEmail(mAuth.getCurrentUser().getEmail())).setValue(u);
+                        }
+                        else
+                            restartGame();
                 }
                 @Override
                 public void onCancelled(DatabaseError error) {
@@ -221,6 +255,11 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         makeToast("You lose");
         clearAlert();
         clearTaps();
+        status.setText("Watch");
+        slow.setVisibility(View.VISIBLE);
+        normal.setVisibility(View.VISIBLE);
+        fast.setVisibility(View.VISIBLE);
+        flagSpeed =1;
         countTaps =0;
         highScore =1;
         lvl = 1;
@@ -242,7 +281,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         sendAllAlert();
     }
 
-    public void sendAllAlert() {
+    public synchronized void sendAllAlert() {
         //TODO need to fix
         Thread timer = new Thread(new Runnable() {
             public void run() {
@@ -250,15 +289,15 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
                     Thread.sleep(2000);
                     for (int alert : alerts) {
                         playAlert(alert);
-                        Thread.sleep(800);
+                        Thread.sleep(speed);
                     }
+                    freeButton();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         });
         timer.start();
-        freeButton();
     }
     public void freeButton(){
         leftTop.setClickable(true);

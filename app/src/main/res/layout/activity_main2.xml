@@ -13,7 +13,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:gravity="center"
         android:text="Welcome Simon Says"
         android:textSize="20dp" />
@@ -21,7 +21,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <TextView
@@ -37,14 +37,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/high_score"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:layout_marginLeft="210dp"
+            android:layout_marginLeft="160dp"
             android:background="#3d0055"
             android:text="Ranking"
             android:textColor="@color/white" />
@@ -61,18 +61,18 @@
 
     <TextView
         android:id="@+id/status"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
         android:text=""
-        android:textSize="30dp" />
+        android:textSize="20dp" />
 
     <LinearLayout
+        android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -116,18 +116,58 @@
             android:layout_marginBottom="5dp"
             android:background="@drawable/rrb" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/slow"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="#3d0055"
+            android:gravity="center"
+            android:text="slow"
+            android:textColor="@color/white"
+            android:textSize="15dp" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/normal"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="#3d0055"
+            android:gravity="center"
+            android:text="normal"
+            android:textColor="@color/white"
+            android:layout_marginLeft="5dp"
+            android:textSize="15dp" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/fast"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="#3d0055"
+            android:gravity="center"
+            android:text="fast"
+            android:textColor="@color/white"
+            android:layout_marginLeft="5dp"
+            android:textSize="15dp" />
+
+    </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/start"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:background="#3d0055"
         android:gravity="center"
         android:text="START"
         android:textColor="@color/white"
-
         android:textSize="30dp" />
 
 </LinearLayout>

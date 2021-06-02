@@ -43,6 +43,14 @@
         android:textSize="30dp"
         />
 
+    <TextView
+        android:id="@+id/my_score"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:textSize="25dp" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/return_to_play"
         android:layout_width="180dp"
