@@ -55,9 +55,9 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
                     users.add(u);
                 }
                 Collections.reverse(users);
-                first.setText(users.get(0).getName()+" Level:"+users.get(0).getScore());
-                second.setText(users.get(1).getName()+" Level:"+users.get(1).getScore());
-                three.setText(users.get(2).getName()+" Level:"+users.get(2).getScore());
+                first.setText("#1 - Level "+users.get(0).getScore()+": "+users.get(0).getName());
+                second.setText("#2 - Level "+users.get(1).getScore()+": "+users.get(1).getName());
+                three.setText("#3 - Level "+users.get(2).getScore()+": "+users.get(2).getName());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -65,21 +65,21 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
             }
         });
         //TODO need to add high score of current user
-        /*myRef.child(cutEmail(mAuth.getCurrentUser().getEmail())).addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.child(cutEmail(mAuth.getCurrentUser().getEmail())).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 if(snapshot != null) {
                     User u = snapshot.getValue(User.class);
-                    my_score.setText("yor high score is: " + String.valueOf(u.getScore()));
+                    my_score.setText("Your High Score Is: " + String.valueOf(u.getScore()));
                 }
                 else
-                    my_score.setText("no high score go to play");
+                    my_score.setText("No High Score Go To Play");
             }
             @Override
             public void onCancelled(DatabaseError error) {
                 makeToast(error.getDetails());
             }
-        });*/
+        });
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,7 +34,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
     DatabaseReference myRef;
     private int countTaps=0,lvl = 1,highScore=1,speed=800, flagSpeed=1;
     TextView topLabel, level, status;
-    androidx.appcompat.widget.AppCompatButton leftTop, rightTop, leftBottom, rightBottom, start, show_score, log_out, slow,normal,fast;
+    androidx.appcompat.widget.AppCompatButton leftTop, rightTop, leftBottom, rightBottom, start, show_score, info, slow,normal,fast;
     List<Integer> alerts = new ArrayList<>();
     List<Integer> taps = new ArrayList<>();
     Random random = new Random();
@@ -55,7 +56,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         show_score = findViewById(R.id.high_score);
         level = findViewById(R.id.level);
         status = findViewById(R.id.status);
-        log_out = findViewById(R.id.log_out);
+        info = findViewById(R.id.info);
         slow = findViewById(R.id.slow);
         normal = findViewById(R.id.normal);
         fast = findViewById(R.id.fast);
@@ -66,7 +67,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         leftTop.setOnClickListener(this);
         start.setOnClickListener(this);
         show_score.setOnClickListener(this);
-        log_out.setOnClickListener(this);
+        info.setOnClickListener(this);
         slow.setOnClickListener(this);
         normal.setOnClickListener(this);
         fast.setOnClickListener(this);
@@ -82,10 +83,10 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         //myRef.child("nativma42@gmail")
 
         st =  MediaPlayer.create(this, R.raw.start);
-        red =  MediaPlayer.create(this, R.raw.start);
-        blue =  MediaPlayer.create(this, R.raw.start);
-        green =  MediaPlayer.create(this, R.raw.start);
-        yellow =  MediaPlayer.create(this, R.raw.start);
+        red =  MediaPlayer.create(this, R.raw.red);
+        blue =  MediaPlayer.create(this, R.raw.blue);
+        green =  MediaPlayer.create(this, R.raw.green);
+        yellow =  MediaPlayer.create(this, R.raw.yellow);
         lockButton();
     }
 
@@ -99,10 +100,8 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
             Intent intent = new Intent(MainActivity2.this,MainActivity3.class);
             startActivity(intent);
         }
-        if(log_out.equals(v)){
-             mAuth.signOut();
-             Toast.makeText(getApplicationContext(), "user log out", Toast.LENGTH_SHORT).show();
-             Intent intent = new Intent(MainActivity2.this,MainActivity.class);
+        if(info.equals(v)){
+             Intent intent = new Intent(MainActivity2.this,MainActivity4.class);
              startActivity(intent);
         }
         if (start.equals(v)) {
@@ -200,18 +199,25 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
     }
 
     public void startGame() {
+        normal.setClickable(false);
         this.start.setVisibility(View.INVISIBLE);
+        //1 = slow
         if(flagSpeed == 1){
-            normal.setVisibility(View.INVISIBLE);
+            slow.setVisibility(View.INVISIBLE);
             fast.setVisibility(View.INVISIBLE);
+            normal.setText("Slow");
         }
+        //2 = normal
         if(flagSpeed == 2){
             slow.setVisibility(View.INVISIBLE);
             fast.setVisibility(View.INVISIBLE);
+            normal.setText("Normal");
         }
+        //3 = fast
         if(flagSpeed == 3){
             slow.setVisibility(View.INVISIBLE);
-            normal.setVisibility(View.INVISIBLE);
+            fast.setVisibility(View.INVISIBLE);
+            normal.setText("Fast");
         }
         level.setText("Level: " + String.valueOf(lvl));
         addAlert();
@@ -230,6 +236,8 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
             }
         }
         else {
+            normal.setClickable(true);
+            lockButton();
             //TODO check if the score in the DB is Greater than current score
             myRef.child(cutEmail(mAuth.getCurrentUser().getEmail())).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -256,6 +264,9 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         clearAlert();
         clearTaps();
         status.setText("Watch");
+        slow.setText("Slow");
+        normal.setText("Normal");
+        fast.setText("Fast");
         slow.setVisibility(View.VISIBLE);
         normal.setVisibility(View.VISIBLE);
         fast.setVisibility(View.VISIBLE);
