@@ -90,6 +90,10 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         lockButton();
     }
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 
     @Override
     public void onClick(View v) {
