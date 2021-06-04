@@ -22,6 +22,7 @@ public class MainActivity4 extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main4);
+        getSupportActionBar().hide();
         git = findViewById(R.id.git);
         logOut = findViewById(R.id.log_out);
 

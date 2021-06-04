@@ -38,7 +38,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
     List<Integer> alerts = new ArrayList<>();
     List<Integer> taps = new ArrayList<>();
     Random random = new Random();
-    MediaPlayer st,red,blue,yellow,green;
+    MediaPlayer st,red,blue,yellow,green,lose;
     private FirebaseAuth mAuth;
     Intent intent = getIntent();
     //FirebaseDatabase database;
@@ -47,6 +47,9 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        getSupportActionBar().hide();
+
         topLabel = findViewById(R.id.topLabel);
         leftBottom = findViewById(R.id.leftBottom);
         rightBottom = findViewById(R.id.rightBottom);
@@ -87,6 +90,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         blue =  MediaPlayer.create(this, R.raw.blue);
         green =  MediaPlayer.create(this, R.raw.green);
         yellow =  MediaPlayer.create(this, R.raw.yellow);
+        lose =  MediaPlayer.create(this, R.raw.lose);
         lockButton();
     }
 
@@ -240,6 +244,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
             }
         }
         else {
+            lose.start();
             normal.setClickable(true);
             lockButton();
             //TODO check if the score in the DB is Greater than current score

@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
         password = findViewById(R.id.password);
         email = findViewById(R.id.email);
         signIn = findViewById(R.id.sign_in);
@@ -46,6 +47,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(MainActivity.this,MainActivity2.class);
             startActivity(intent);
         }
+    }
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
     public void makeToast(String str) {
         Toast.makeText(this, str, Toast.LENGTH_LONG).show();

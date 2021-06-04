@@ -67,7 +67,7 @@
     <TextView
         android:id="@+id/status"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:gravity="center"
         android:text=""
@@ -122,8 +122,9 @@
             android:background="@drawable/rrb" />
     </LinearLayout>
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_gravity="center"
         android:gravity="center"
         android:orientation="horizontal">

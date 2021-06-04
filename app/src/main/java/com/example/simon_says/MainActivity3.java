@@ -32,6 +32,7 @@ public class MainActivity3 extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
+        getSupportActionBar().hide();
         rPlay = findViewById(R.id.return_to_play);
         first = findViewById(R.id.first);
         second = findViewById(R.id.second);
