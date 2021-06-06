@@ -15,9 +15,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity4 extends AppCompatActivity implements View.OnClickListener {
     androidx.appcompat.widget.AppCompatButton logOut,git;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
-    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,27 +25,23 @@ public class MainActivity4 extends AppCompatActivity implements View.OnClickList
 
         git.setOnClickListener(this);
         logOut.setOnClickListener(this);
-
-        mAuth= FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("users");
     }
 
     @Override
     public void onClick(View v) {
-        if(v.equals(logOut)){
-             mAuth.signOut();
-             Toast.makeText(getApplicationContext(), "user log out", Toast.LENGTH_SHORT).show();
-             Intent intent = new Intent(MainActivity4.this,MainActivity.class);
-             startActivity(intent);
-        }
-        if(v.equals(git)){
-            //https://github.com/NativMaatuk/Simon-Says
-            //String url = "http://www.gobloggerslive.com";
-            String url = "https://github.com/NativMaatuk/Simon-Says";
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            startActivity(i);
+        switch (v.getId()) {
+            case R.id.log_out:
+                Singleton.getInstance().getMAuth().signOut();
+                Toast.makeText(getApplicationContext(), "user log out", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity4.this,MainActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.git:
+                String url = "https://github.com/NativMaatuk/Simon-Says";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+                break;
         }
     }
 }
